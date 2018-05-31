@@ -17,7 +17,7 @@ class Level {
     return newMatrix;
   }
   generateTileMatrix(i, j) {
-    let tileMatrix = generateMatrix(i, j, -1);
+    let tileMatrix = generateMatrix(i, j, new Tile(i, j, -1));
     this.forAllOnes(this.levelMatrix, (y, x) => {
       let newTile = new Tile(y, x);
       tileMatrix[y][x] = newTile;

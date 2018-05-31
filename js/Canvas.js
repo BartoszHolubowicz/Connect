@@ -34,6 +34,19 @@ class Canvas {
     this.ctx.lineTo(x2, y2);
     this.ctx.stroke();
   }
+  checkTileClicked() {
+    let gc = globalConfig,
+        x = Math.ceil((cMouseX - gc.marginLeft) / gc.tileSize),
+        y = Math.ceil((cMouseY - gc.marginTop) / gc.tileSize);
+    if ((x <= this.level.tileMatrix[0].length - 2 && x > 0) && (y <= this.level.tileMatrix.length - 2 && y > 0))
+      return {i: y, j: x};
+    else {
+      return {i: -1, j: -1};
+    }
+  }
+  getTileByPos(i, j) {
+    return this.level.tileMatrix[i][j];
+  }
   drawTile(tile) {
     let gc = globalConfig;
     this.ctx.fillStyle = tile.isMouseOver() ? tile.colorByType(tile.type + 10) : tile.colorByType(tile.type);
