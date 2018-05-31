@@ -1,0 +1,15 @@
+{
+  "canvasSelector": "#canvas",
+
+  "tileSize": 48,
+
+  "staticMargins": false,
+  "marginLeft": 50,
+  "marginRight": 100,
+  "marginTop": 50,
+  "marginBottom": 25,
+  "marginLeftProp": 2,
+  "marginRightProp": 2,
+  "marginTopProp": 1,
+  "marginBottomProp": 1
+}
