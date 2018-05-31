@@ -4,7 +4,7 @@ var mouseX, mouseY;
 var level1_config, level2_config;
 var level1, level2;
 
-var mainCanvas;
+var mainCanvas = new Canvas('#canvas', 200, 200);
 
 loadJSON('../config.json')
 .then(data => {
@@ -25,6 +25,10 @@ loadJSON('../levels/level1.json')
 })
 .then(() => {
   level1 = new Level(level1_config);
+  return level1;
+})
+.then(level => {
+  mainCanvas.loadLevel(level);
 });
 
 loadJSON('../levels/level2.json')
@@ -40,4 +44,3 @@ window.addEventListener("mousemove", e => {
   mouseY = e.pageY;
 })
 
-mainCanvas = new Canvas('#canvas', 200, 200);

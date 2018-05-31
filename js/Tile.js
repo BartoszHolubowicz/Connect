@@ -1,5 +1,5 @@
 class Tile {
-  constructor(i, j, type = Math.floor(Math.random() * 5) + 1) {
+  constructor(i, j, type = Math.floor(Math.random() * 6) + 1) {
     this.i = i;
     this.j = j;
     this.type = type;
