@@ -3,7 +3,7 @@ async function loadJSON(fileSource) {
   return await res.json();
 }
 
-function generateMatrix(i, j, val) {
+function generateMatrix(i, j, val) { // Returns a ixj matrix filled with vals
   let array = [];
   for (let y = 0; y < i; y++) {
     let row = [];

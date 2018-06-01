@@ -26,28 +26,29 @@ class Tile {
         return '#0ff';
         break;
       case 11:
-        return '#f22';
+        return '#f44';
         break;
       case 12:
-        return '#2f2';
+        return '#4f4';
         break;
       case 13:
-        return '#22f';
+        return '#44f';
         break;
       case 14:
-        return '#ff2';
+        return '#ff4';
         break;
       case 15:
-        return '#f2f';
+        return '#f4f';
         break;
       case 16:
-        return '#2ff';
+        return '#4ff';
         break;
     }
   }
-  isMouseOver(mouseX, mouseY) {
+  isMouseOver() {
     let gc = globalConfig;
-    if(((mouseX >= this.j && mouseX < this.j + gc.tileSize)) && (mouseY >= this.i && mouseY < this.i + gc.tileSize))
+    if (cMouseX >= gc.marginLeft + (this.j - 1) * gc.tileSize && cMouseX < gc.marginLeft + this.j * gc.tileSize &&
+        cMouseY >= gc.marginTop + (this.i - 1) * gc.tileSize && cMouseY < gc.marginTop + this.i * gc.tileSize)
       return true;
   }
 }

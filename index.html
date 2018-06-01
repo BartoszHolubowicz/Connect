@@ -10,19 +10,18 @@
     </style>
   </head>
   <body>
-    <button onclick="mainCanvas.loadLevel(level1)">level1</button>
-    <button onclick="mainCanvas.loadLevel(level2)">level2</button>
-    <button onclick="mainCanvas.loadLevel(level3)">level3</button>
-    <button onclick="mainCanvas.level.reset()">reset</button><br>
-    
+    <div id="debug-stuff" style="display: none;">
+      <input id="cmd" type="text"><button onclick="command(document.querySelector('#cmd'))">></button><br>
+    </div>
     <canvas id="canvas"></canvas>
-
-    <script src="js/functions.js"></script>
-    <script src="js/Vector.js"></script>
+    
+    <script src="js/utilities.js"></script>
+    <script src="js/cmd.js"></script>
     <script src="js/Tile.js"></script>
     <script src="js/Level.js"></script>
     <script src="js/Canvas.js"></script>
 
     <script src="js/main.js"></script>
+    
   </body>
 </html>
