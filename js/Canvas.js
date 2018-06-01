@@ -63,6 +63,10 @@ class Canvas {
     });
     return selectedTiles;
   }
+  moveTileTo(tile, i, j) {
+    this.level.tileMatrix[tile.i][tile.j] = new Tile(tile.i, tile.j, 0);
+    this.level.tileMatrix[i][j] = new Tile(i, j, tile.type);
+  }
   swapTiles(tile1, tile2) {
     let newTile1 = new Tile(tile1.i, tile1.j, tile2.type),
         newTile2 = new Tile(tile2.i, tile2.j, tile1.type);
@@ -71,7 +75,7 @@ class Canvas {
   }
   drawTile(tile) {
     let gc = globalConfig;
-    this.ctx.fillStyle = tile.isMouseOver() ? tile.colorByType(tile.type + 10) : tile.colorByType(tile.type);
+    this.ctx.fillStyle = tile.isMouseOver() && (tile.type >= 1 && tile.type <= gc.tileColors) ? tile.colorByType(tile.type + 10) : tile.colorByType(tile.type);
     this.ellipse(gc.marginLeft + (tile.j - 1) * gc.tileSize, gc.marginTop + (tile.i - 1) * gc.tileSize, gc.tileSize * 0.5, gc.tileSize * 0.5, false, true);
   }
   //#endregion

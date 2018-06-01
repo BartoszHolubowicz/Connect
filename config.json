@@ -2,6 +2,7 @@
   "debugMode": true,
   "canvasSelector": "#canvas",
   "startingLevel": "levels[0]",
+  "tileColors": 6,
   "tileSize": 48,
   "staticMargins": false,
   "marginLeft": 50,
