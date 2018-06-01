@@ -23,6 +23,28 @@ function command(cmdInput) {
   else if (c[0] === 'reset')
     executeCommand(() => mainCanvas.level.reset(), 1);
   //#endregion
+  //#region swap [i1 j1 i2 j2]
+  if (c[0] === 'swap') {
+    if (c.length === 1) {
+      if (mainCanvas.getSelectedTiles().length === 2)
+        executeCommand(() => mainCanvas.swapTiles(mainCanvas.getSelectedTiles()[0], mainCanvas.getSelectedTiles()[1]), 1);
+      else
+        console.info(`%cError: two tiles must be selected for %c${c[0]} %cto work`, 'color: red;', 'color: #ffd000; font-weight: bold; text-shadow: 1px 1px 0 black;', 'color: red;');
+    } else if (c.length === 5) {
+      try {
+        executeCommand(() => mainCanvas.swapTilesByPos(parseInt(c[1]), parseInt(c[2]), parseInt(c[3]), parseInt(c[4])));
+      } catch(err) {
+        if (err instanceof TypeError)
+          console.info(`%cError: inappropriate use of %c${c[0]}`, 'color: red;', 'color: #ffd000; font-weight: bold; text-shadow: 1px 1px 0 black;');
+        else
+          console.log(err);
+      }
+    } else
+      console.info(`%cError: inappropriate use of %c${c[0]}`, 'color: red;', 'color: #ffd000; font-weight: bold; text-shadow: 1px 1px 0 black;');
+  }
+  //#endregion
+  // TODO: select [all|i j]
+  // TODO: unselect [all|i j]
   //#region testing my fancy command line
   else if (c[0] === 'testing') {
     if (c[1] === 'my')
