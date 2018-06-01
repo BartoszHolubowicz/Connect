@@ -67,10 +67,10 @@ class Canvas {
     if(this.getTileGridPos(cMouseX, cMouseY).i === -1 && this.getTileGridPos(cMouseX, cMouseY).j === -1 && e.button === 0)
       return;
     let clickPos = this.getTileGridPos(cMouseX, cMouseY);
-    if (this.level.levelMatrix[clickPos.i][clickPos.j])
+    if (this.level.levelMatrix[clickPos.i][clickPos.j] && !this.level.selectionMatrix[clickPos.i][clickPos.j])
       this.level.selectionMatrix[clickPos.i][clickPos.j] = 1;
-    // else
-    //   this.level.selectionMatrix = generateMatrix(this.level.selectionMatrix[0].length, this.level.selectionMatrix.length);
+    else if (this.level.levelMatrix[clickPos.i][clickPos.j])
+      this.level.selectionMatrix[clickPos.i][clickPos.j] = 0;
   }
   mouseDown(e) {
     return;
