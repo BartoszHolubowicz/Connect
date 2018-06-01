@@ -2,7 +2,8 @@ class Level {
   constructor(config) {
     this.config = config;
     this.levelMatrix = this.loadLevelMatrix();
-    this.tileMatrix = this.generateTileMatrix(this.levelMatrix[0].length, this.levelMatrix.length, 0);
+    this.tileMatrix = this.generateTileMatrix(this.levelMatrix[0].length, this.levelMatrix.length);
+    this.selectionMatrix = generateMatrix(this.levelMatrix[0].length, this.levelMatrix.length, 0);
   }
   loadLevelMatrix() { // Outline level matrix with zeros
     let newMatrix = [], emptyRow = [];
@@ -18,7 +19,7 @@ class Level {
   }
   generateTileMatrix(i, j) { // Generates tiles where level matrix values are ones
     let tileMatrix = generateMatrix(i, j, new Tile(i, j, -1));
-    this.forAllOnes(this.levelMatrix, (y, x) => {
+    forAllOnes(this.levelMatrix, (y, x) => {
       let newTile = new Tile(y, x);
       tileMatrix[y][x] = newTile;
     });
@@ -30,38 +31,4 @@ class Level {
   checkTileMatches() {
     return;
   }
-  //#region Functions that do something for all specific values in a matrix
-  forAllZeros(matrix, callback) {
-    for (let i = 1; i < matrix.length - 1; i++) {
-      for (let j = 1; j < matrix[i].length - 1; j++) {
-        if (!matrix[i][j])
-          callback(i, j);
-      }
-    }
-  }
-  forAllOnes(matrix, callback) {
-    for (let i = 1; i < matrix.length - 1; i++) {
-      for (let j = 1; j < matrix[i].length - 1; j++) {
-        if (matrix[i][j])
-          callback(i, j);
-      }
-    }
-  }
-  forAllSpecific(matrix, val, callback) {
-    for (let i = 1; i < matrix.length - 1; i++) {
-      for (let j = 1; j < matrix[i].length - 1; j++) {
-        if (matrix[i][j] === val)
-          callback(i, j);
-      }
-    }
-  }
-  forAllNotSpecific(matrix, val, callback) {
-    for (let i = 1; i < matrix.length - 1; i++) {
-      for (let j = 1; j < matrix[i].length - 1; j++) {
-        if (matrix[i][j] !== val)
-          callback(i, j);
-      }
-    }
-  }
-  //#endregion
 }

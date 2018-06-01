@@ -70,20 +70,13 @@ class Canvas {
     this.ctx.clearRect(gc.marginLeft, gc.marginTop, gc.tileSize * this.level.config.levelMatrix[0].length, gc.tileSize * this.level.config.levelMatrix.length);
     //#endregion
     //#region Tile drawing
-    this.level.forAllOnes(this.level.levelMatrix, (i, j) => {
-      // let mouseGridPos = this.getTileGridPos(cMouseX, cMouseY);
-      // if (i === mouseGridPos.i && j === mouseGridPos.j) {
-      //   let tileHighlighted = this.level.tileMatrix[i][j];
-      //   tileHighlighted.type += 10;
-      //   tileHighlighted.color = tileHighlighted.colorByType(tileHighlighted.type);
-      //   this.drawTile(tileHighlighted);
-      // } else
-        this.drawTile(this.level.tileMatrix[i][j]);
+    forAllOnes(this.level.levelMatrix, (i, j) => {
+      this.drawTile(this.level.tileMatrix[i][j])
     });
     //#endregion
     //#region Background for empty tiles
     this.ctx.fillStyle = outerColor;
-    this.level.forAllZeros(this.level.levelMatrix, (i, j) => {
+    forAllZeros(this.level.levelMatrix, (i, j) => {
       this.ctx.fillRect(gc.marginLeft + (j - 1) * gc.tileSize, gc.marginTop + (i - 1) * gc.tileSize, gc.tileSize, gc.tileSize);
     });
     //#endregion
@@ -91,7 +84,7 @@ class Canvas {
     this.ctx.lineWidth = 3;
     this.ctx.strokeStyle = '#000';
     this.ctx.lineCap = 'round';
-    this.level.forAllOnes(this.level.levelMatrix, (i, j) => {
+    forAllOnes(this.level.levelMatrix, (i, j) => {
       if (!this.level.levelMatrix[i-1][j])
         this.line((j - 1) * gc.tileSize + gc.marginLeft, (i - 1) * gc.tileSize + gc.marginTop, j * gc.tileSize + gc.marginLeft, (i - 1) * gc.tileSize + gc.marginTop);
       if (!this.level.levelMatrix[i][j-1])
