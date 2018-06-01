@@ -52,10 +52,28 @@ class Canvas {
   getTileByPos(i, j) {
     return this.level.tileMatrix[i][j];
   }
+  getTileAtCursor() {
+    let tilePos = this.getTileGridPos(cMouseX, cMouseY);
+    return this.getTileByPos(tilePos.i, tilePos.j);
+  }
   drawTile(tile) {
     let gc = globalConfig;
     this.ctx.fillStyle = tile.isMouseOver() ? tile.colorByType(tile.type + 10) : tile.colorByType(tile.type);
     this.ellipse(gc.marginLeft + (tile.j - 1) * gc.tileSize, gc.marginTop + (tile.i - 1) * gc.tileSize, gc.tileSize * 0.5, gc.tileSize * 0.5, false, true);
+  }
+  //#endregion
+  //#region Mouse event handlers
+  mouseClick(e) {
+    if(this.getTileGridPos(cMouseX, cMouseY).i === -1 && this.getTileGridPos(cMouseX, cMouseY).j === -1 && e.button === 0)
+      return;
+    let clickPos = this.getTileGridPos(cMouseX, cMouseY);
+    if (this.level.levelMatrix[clickPos.i][clickPos.j])
+      this.level.selectionMatrix[clickPos.i][clickPos.j] = 1;
+    // else
+    //   this.level.selectionMatrix = generateMatrix(this.level.selectionMatrix[0].length, this.level.selectionMatrix.length);
+  }
+  mouseDown(e) {
+    return;
   }
   //#endregion
   //#region Scene drawing
@@ -95,8 +113,22 @@ class Canvas {
         this.line(j * gc.tileSize + gc.marginLeft, (i - 1) * gc.tileSize + gc.marginTop, j * gc.tileSize + gc.marginLeft, i * gc.tileSize + gc.marginTop);
     });
     //#endregion
+    //#region Selection outlines drawing
+    this.ctx.lineWidth = 5;
+    this.ctx.strokeStyle = '#f80';
+    forAllOnes(this.level.selectionMatrix, (i, j) => {
+      if (!this.level.selectionMatrix[i-1][j])
+        this.line((j - 1) * gc.tileSize + gc.marginLeft, (i - 1) * gc.tileSize + gc.marginTop, j * gc.tileSize + gc.marginLeft, (i - 1) * gc.tileSize + gc.marginTop);
+      if (!this.level.selectionMatrix[i][j-1])
+        this.line((j - 1) * gc.tileSize + gc.marginLeft, (i - 1) * gc.tileSize + gc.marginTop, (j - 1) * gc.tileSize + gc.marginLeft, i * gc.tileSize + gc.marginTop);
+      if (!this.level.selectionMatrix[i+1][j])
+        this.line((j - 1) * gc.tileSize + gc.marginLeft, i * gc.tileSize + gc.marginTop, j * gc.tileSize + gc.marginLeft, i * gc.tileSize + gc.marginTop);
+      if (!this.level.selectionMatrix[i][j+1])
+        this.line(j * gc.tileSize + gc.marginLeft, (i - 1) * gc.tileSize + gc.marginTop, j * gc.tileSize + gc.marginLeft, i * gc.tileSize + gc.marginTop);
+    });
+    this.ctx.lineWidth = 0;
+    //#endregion
 
-    this.level.checkTileMatches();
     window.requestAnimationFrame(this.draw.bind(this));
   }
   //#endregion

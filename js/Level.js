@@ -2,8 +2,7 @@ class Level {
   constructor(config) {
     this.config = config;
     this.levelMatrix = this.loadLevelMatrix();
-    this.tileMatrix = this.generateTileMatrix(this.levelMatrix[0].length, this.levelMatrix.length);
-    this.selectionMatrix = generateMatrix(this.levelMatrix[0].length, this.levelMatrix.length, 0);
+    this.reset();
   }
   loadLevelMatrix() { // Outline level matrix with zeros
     let newMatrix = [], emptyRow = [];
@@ -25,10 +24,8 @@ class Level {
     });
     return tileMatrix;
   }
-  reset() { // Generate a new tile matrix
-    this.tileMatrix = this.generateTileMatrix(this.levelMatrix[0].length, this.levelMatrix.length, 0);
-  }
-  checkTileMatches() {
-    return;
+  reset() { // Generate a new tile and selection matrix
+    this.tileMatrix = this.generateTileMatrix(this.levelMatrix.length, this.levelMatrix[0].length, 0);
+    this.selectionMatrix = generateMatrix(this.levelMatrix.length, this.levelMatrix[0].length, 0);
   }
 }

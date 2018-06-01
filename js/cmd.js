@@ -12,8 +12,10 @@ function command(cmdInput) {
     try {
       executeCommand(() => mainCanvas.loadLevel(eval(c[1])), 2);
     } catch(err) {
-      if (err instanceof ReferenceError)
+      if (err instanceof ReferenceError || err instanceof SyntaxError)
         console.info(`%cError: %c${c[1]} %cdoesn't exist`, 'color: red;', 'color: blue; font-weight: bold;', 'color: red;');
+      else
+        console.log(err);
     }
   }
   //#endregion

@@ -1,9 +1,9 @@
 var globalConfig;
 var mouseX, mouseY, cMouseX, cMouseY; // Mouse position variables
 
-//#region Level variables
-var level0_config, level1_config, level2_config, level3_config;
-var level0, level1, level2, level3;
+//#region Level related variables
+const levelCount = 4;
+var levels = [];
 var levelPromises = [];
 //#endregion
 
@@ -12,8 +12,9 @@ var levelPromises = [];
   var globalConfigPromise = loadJSON('../config.json')
   .then(data => {
     globalConfig = data;
+    return globalConfig;
   })
-  .then(() => {
+  .then(data => {
     if (!globalConfig.staticMargins) {
       globalConfig.marginLeft = globalConfig.tileSize * globalConfig.marginLeftProp;
       globalConfig.marginRight = globalConfig.tileSize * globalConfig.marginRightProp;
@@ -26,7 +27,7 @@ var levelPromises = [];
     }
   });
   //#endregion
-  //#region Loading main canvas, getting mouse positions on mouse move
+  //#region Loading main canvas, adding event listeners to it
   var mainCanvas, mainCanvasPromise = new Promise((resolve, reject) => {
     resolve();
   })
@@ -45,45 +46,22 @@ var levelPromises = [];
       cMouseX = mouseX - this.offsetLeft;
       cMouseY = mouseY - this.offsetTop;
     });
+    canv.c.addEventListener('click', e => canv.mouseClick(e));
+    canv.c.addEventListener('mousedown', e => canv.mouseDown(e));
   });
   //#endregion
   //#region Loading levels
-  levelPromises[0] = loadJSON('../levels/level0.json')
-  .then(data => {
-    level0_config = data;
-  })
-  .then(() => {
-    level0 = new Level(level0_config);
-  });
-
-  levelPromises[1] = loadJSON('../levels/level1.json')
-  .then(data => {
-    level1_config = data;
-  })
-  .then(() => {
-    level1 = new Level(level1_config);
-  });
-
-  levelPromises[2] = loadJSON('../levels/level2.json')
-  .then(data => {
-    level2_config = data;
-  })
-  .then(() => {
-    level2 = new Level(level2_config);
-  });
-
-  levelPromises[3] = loadJSON('../levels/level3.json')
-  .then(data => {
-    level3_config = data;
-  })
-  .then(() => {
-    level3 = new Level(level3_config);
-  });
+  for (let i = 0; i < levelCount; i++) {
+    levelPromises[i] = loadJSON(`../levels/level${i}.json`)
+    .then(data => {
+      levels[i] = new Level(data);
+    })
+  }
   //#endregion
-  //#region Load everything, set main canvas level to level1
+  //#region Load everything, set main canvas level to starting level set in config.json
   Promise.all([globalConfigPromise, mainCanvasPromise, ...levelPromises])
   .then(() => {
     mainCanvas.loadLevel(eval(globalConfig.startingLevel));
   });
-//#endregion
+  //#endregion
 //#endregion

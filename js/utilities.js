@@ -3,6 +3,7 @@ async function loadJSON(fileSource) {
   return await res.json();
 }
 
+//#region Matrix functions
 function generateMatrix(i, j, val) { // Returns a ixj matrix filled with vals
   let array = [];
   for (let y = 0; y < i; y++) {
@@ -55,3 +56,21 @@ function countInMatrix(matrix, val) {
         count++;
   return count;
 }
+function transpose(matrix) {
+  let transposed = [],
+      row;
+  for (let i = 0; i < matrix[0].length; i++) {
+    row = [];
+    for (let j = 0; j < matrix.length; j++)
+      row.push(matrix[j][i]);
+    transposed.push(row);
+  }
+  return transposed;
+}
+function reverseRows(matrix) {
+  let reversed = [];
+  for (let row of matrix)
+    reversed.push(row.reverse());
+  return reversed;
+}
+//#endregion

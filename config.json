@@ -1,7 +1,7 @@
 {
   "debugMode": true,
   "canvasSelector": "#canvas",
-  "startingLevel": "level0",
+  "startingLevel": "levels[0]",
   "tileSize": 48,
   "staticMargins": false,
   "marginLeft": 50,
