@@ -73,6 +73,9 @@ class Canvas {
     this.level.tileMatrix[tile1.i][tile1.j] = newTile1;
     this.level.tileMatrix[tile2.i][tile2.j] = newTile2;
   }
+  swapTilesByPos(i1, j1, i2, j2) {
+    this.swapTiles(this.getTileByPos(i1, j1), this.getTileByPos(i2, j2));
+  }
   drawTile(tile) {
     let gc = globalConfig;
     this.ctx.fillStyle = tile.isMouseOver() && (tile.type >= 1 && tile.type <= gc.tileColors) ? tile.colorByType(tile.type + 10) : tile.colorByType(tile.type);
