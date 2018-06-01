@@ -2,7 +2,7 @@ var globalConfig;
 var mouseX, mouseY, cMouseX, cMouseY; // Mouse position variables
 
 //#region Level related variables
-const levelCount = 4;
+const levelCount = 5;
 var levels = [];
 var levelPromises = [];
 //#endregion

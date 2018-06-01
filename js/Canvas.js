@@ -56,6 +56,19 @@ class Canvas {
     let tilePos = this.getTileGridPos(cMouseX, cMouseY);
     return this.getTileByPos(tilePos.i, tilePos.j);
   }
+  getSelectedTiles() {
+    let selectedTiles = [];
+    forAllOnes(this.level.selectionMatrix, (i, j) => {
+      selectedTiles.push(this.getTileByPos(i, j));
+    });
+    return selectedTiles;
+  }
+  swapTiles(tile1, tile2) {
+    let newTile1 = new Tile(tile1.i, tile1.j, tile2.type),
+        newTile2 = new Tile(tile2.i, tile2.j, tile1.type);
+    this.level.tileMatrix[tile1.i][tile1.j] = newTile1;
+    this.level.tileMatrix[tile2.i][tile2.j] = newTile2;
+  }
   drawTile(tile) {
     let gc = globalConfig;
     this.ctx.fillStyle = tile.isMouseOver() ? tile.colorByType(tile.type + 10) : tile.colorByType(tile.type);

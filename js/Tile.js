@@ -7,6 +7,9 @@ class Tile {
   }
   colorByType(type) {
     switch(type) {
+      case 0:
+        return '#fff';
+        break;
       case 1:
         return '#f00';
         break;
